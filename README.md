@@ -165,3 +165,11 @@ Esta é a versão recomendada para substituir o conteúdo atual do repositório.
 - Botões para visitar Linha Verde, Uillian Tattoo e Corretor Premium.
 - Cases enriquecidos com status, cidade, segmento e CTA para o projeto.
 - Cards reformulados com metadados, tags e ações independentes.
+
+
+## v3.2 — Premium Experience
+- Portfólio redesenhado em grade uniforme 2x2.
+- Imagens visuais reais dos projetos dentro de molduras de navegador.
+- Separação clara entre projetos publicados e demonstrativos.
+- Ações de case e visita ao site mais visíveis.
+- Layout responsivo e acessível para desktop e mobile.

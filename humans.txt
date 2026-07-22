@@ -1,0 +1,8 @@
+/* TEAM */
+Strategy, design and development: DiCampos Studio
+Contact: https://dicamposstudio.github.io/dicamposstudio/pages/diagnostico.html
+Location: Recife, Pernambuco, Brasil
+
+/* SITE */
+Language: Portuguese (Brazil)
+Standards: HTML5, CSS3, JavaScript, Schema.org

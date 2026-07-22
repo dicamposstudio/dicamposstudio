@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /pages/obrigado.html
+
+Sitemap: https://dicamposstudio.github.io/dicamposstudio/sitemap.xml

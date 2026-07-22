@@ -156,3 +156,12 @@ Arquivos de apoio:
 - `CHECKLIST-PUBLICACAO.md`
 
 Esta é a versão recomendada para substituir o conteúdo atual do repositório.
+
+
+## v3.1 — Portfólio Premium
+- Fluxo SP 24h removido do portfólio, páginas relacionadas e sitemap.
+- Nova página `pages/portfolio.html`.
+- Projetos separados entre publicados e demonstrativos.
+- Botões para visitar Linha Verde, Uillian Tattoo e Corretor Premium.
+- Cases enriquecidos com status, cidade, segmento e CTA para o projeto.
+- Cards reformulados com metadados, tags e ações independentes.

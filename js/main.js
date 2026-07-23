@@ -68,3 +68,185 @@ window.addEventListener('pageshow',()=>document.documentElement.classList.add('p
     form.addEventListener('input', e => e.target.removeAttribute('aria-invalid'));
   });
 })();
+
+
+// v3.2.1 — WhatsApp inteligente: contexto, expansão e pulse discreto
+(() => {
+  const widget = document.querySelector('.whatsapp-smart');
+  if (!widget) return;
+
+  const label = widget.querySelector('.whatsapp-smart-copy strong');
+  const path = location.pathname.toLowerCase();
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const contexts = [
+    { test: /portfolio|case-/, label: 'Quero um projeto como este', message: 'Olá! Vi um projeto no portfólio da DiCampos Studio e gostaria de conversar sobre uma solução semelhante para minha empresa.' },
+    { test: /seo/, label: 'Quero aparecer no Google', message: 'Olá! Gostaria de entender como a DiCampos Studio pode melhorar a presença da minha empresa no Google.' },
+    { test: /google-ads/, label: 'Quero gerar mais clientes', message: 'Olá! Gostaria de conversar sobre Google Ads e geração de oportunidades para minha empresa.' },
+    { test: /meta-ads/, label: 'Quero anunciar nas redes', message: 'Olá! Gostaria de conversar sobre Meta Ads para minha empresa.' },
+    { test: /landing-page/, label: 'Quero aumentar conversões', message: 'Olá! Gostaria de criar ou melhorar uma landing page para gerar mais conversões.' },
+    { test: /criacao-de-sites|sites-para-/, label: 'Quero um site profissional', message: 'Olá! Gostaria de conversar sobre a criação de um site profissional para minha empresa.' },
+    { test: /blog|quanto-|guia|vale-a-pena/, label: 'Fiquei com uma dúvida', message: 'Olá! Li um conteúdo da DiCampos Studio e gostaria de tirar uma dúvida.' },
+    { test: /diagnostico|obrigado/, label: 'Continuar pelo WhatsApp', message: 'Olá! Gostaria de continuar meu diagnóstico digital pelo WhatsApp.' }
+  ];
+  const fallback = { label: 'Solicite um diagnóstico gratuito', message: 'Olá! Gostaria de solicitar um diagnóstico digital para minha empresa.' };
+  const current = contexts.find(item => item.test.test(path)) || fallback;
+
+  const setMessage = (text) => { if (label && label.textContent !== text) label.textContent = text; };
+  const setHref = (message) => { widget.href = 'https://wa.me/5581997782751?text=' + encodeURIComponent(message); };
+  setMessage(current.label);
+  setHref(current.message);
+
+  const expand = () => widget.classList.add('is-expanded');
+  const collapse = () => widget.classList.remove('is-expanded');
+  const pulse = () => {
+    if (reduced) return;
+    widget.classList.remove('do-pulse');
+    void widget.offsetWidth;
+    widget.classList.add('do-pulse');
+    setTimeout(() => widget.classList.remove('do-pulse'), 1600);
+  };
+
+  if (reduced) {
+    expand();
+  } else {
+    setTimeout(() => { expand(); pulse(); }, 5200);
+    setTimeout(collapse, 11200);
+    setInterval(pulse, 15000);
+  }
+
+  widget.addEventListener('mouseenter', expand);
+  widget.addEventListener('focus', expand);
+  widget.addEventListener('mouseleave', () => { if (scrollY < 700) collapse(); });
+  widget.addEventListener('blur', () => { if (scrollY < 700) collapse(); });
+
+  let journeyChanged = false;
+  const updateJourney = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const progress = max > 0 ? scrollY / max : 0;
+    if (progress >= .65 && !journeyChanged) {
+      journeyChanged = true;
+      setMessage('Vamos conversar sobre seu projeto?');
+      setHref('Olá! Conheci melhor o trabalho da DiCampos Studio e gostaria de conversar sobre meu projeto.');
+      expand();
+      pulse();
+    }
+  };
+  addEventListener('scroll', updateJourney, { passive: true });
+  updateJourney();
+})();
+
+// v3.2.1 — Entrega 2: microinterações leves e acessíveis
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const interactive = document.querySelectorAll('.card,.project-card,.article-list article,.method-flow article,.case-steps article');
+
+  if (!reduced && window.matchMedia('(hover:hover)').matches) {
+    interactive.forEach(card => {
+      card.dataset.microReady = 'true';
+      card.addEventListener('pointermove', event => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+      }, { passive: true });
+    });
+  }
+
+  document.querySelectorAll('.btn,.nav-cta').forEach(control => {
+    control.addEventListener('pointerdown', event => {
+      if (reduced) return;
+      const rect = control.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'micro-ripple';
+      ripple.style.left = `${event.clientX - rect.left}px`;
+      ripple.style.top = `${event.clientY - rect.top}px`;
+      control.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+    });
+  });
+
+  document.querySelectorAll('.solution-card>span,.feature-card>span,.method-flow article>span,.signal-list article>span').forEach(icon => icon.classList.add('icon-breathe'));
+})();
+
+
+// v3.2.1 — Entrega 3: sequência premium da primeira dobra
+(() => {
+  const hero = document.querySelector('.hero-premium');
+  if (!hero) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const start = () => hero.classList.add('hero-is-ready');
+  if (reduced) start();
+  else requestAnimationFrame(() => requestAnimationFrame(start));
+})();
+
+// v3.2.1 — Entrega 4: performance percebida, jornada e mensuração de conversão
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const saveData = !!connection?.saveData;
+  if (saveData || /(^|-)2g$/.test(connection?.effectiveType || '')) document.documentElement.classList.add('data-saver');
+
+  let engaged = false;
+  const markEngaged = source => {
+    if (engaged) return;
+    engaged = true;
+    document.documentElement.classList.add('conversion-engaged');
+    trackEvent('user_engaged_intent', { engagement_source: source, page_path: location.pathname });
+    setTimeout(() => document.documentElement.classList.remove('conversion-engaged'), reduced ? 0 : 4200);
+  };
+  const engagementTimer = setTimeout(() => markEngaged('time_20s'), 20000);
+  const checkDepth = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (max > 0 && scrollY / max >= .5) {
+      clearTimeout(engagementTimer); markEngaged('scroll_50'); removeEventListener('scroll', checkDepth);
+    }
+  };
+  addEventListener('scroll', checkDepth, { passive: true }); checkDepth();
+
+  if ('IntersectionObserver' in window) {
+    const observed = new Set();
+    const sectionObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (!entry.isIntersecting || observed.has(entry.target)) return;
+      observed.add(entry.target);
+      trackEvent('section_view', { section_id: entry.target.id || entry.target.dataset.section || 'unnamed', page_path: location.pathname });
+      sectionObserver.unobserve(entry.target);
+    }), { threshold: .35 });
+    document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
+  }
+
+  document.querySelectorAll('[data-conversion-cta]').forEach((cta, index) => cta.addEventListener('click', () => trackEvent('conversion_cta_click', {
+    cta_text: cta.textContent.trim(), cta_position: index + 1, page_path: location.pathname
+  })));
+})();
+
+// v3.3 — pesquisa e filtros da Central de Conhecimento
+(() => {
+  const grid = document.querySelector('#knowledge-grid');
+  if (!grid) return;
+  const input = document.querySelector('#article-search');
+  const buttons = [...document.querySelectorAll('[data-filter]')];
+  const cards = [...grid.querySelectorAll('.blog-card')];
+  const results = document.querySelector('#knowledge-results');
+  const empty = document.querySelector('#knowledge-empty');
+  let filter = 'all';
+  const normalize = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const apply = () => {
+    const term = normalize(input?.value || '');
+    let visible = 0;
+    cards.forEach(card => {
+      const category = normalize(card.dataset.category || '');
+      const text = normalize(card.dataset.search || card.textContent);
+      const show = (filter === 'all' || category === normalize(filter)) && (!term || text.includes(term));
+      card.hidden = !show; if (show) visible++;
+    });
+    if (results) results.textContent = `${visible} ${visible === 1 ? 'conteúdo encontrado' : 'conteúdos encontrados'}`;
+    if (empty) empty.hidden = visible !== 0;
+  };
+  input?.addEventListener('input', apply);
+  buttons.forEach(button => button.addEventListener('click', () => {
+    filter = button.dataset.filter || 'all';
+    buttons.forEach(item => item.classList.toggle('active', item === button));
+    apply();
+  }));
+  apply();
+})();

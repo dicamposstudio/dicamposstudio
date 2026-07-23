@@ -91,3 +91,118 @@ html{scroll-padding-top:92px}body.menu-open{overflow:hidden}.main-nav a[aria-cur
 @media(max-width:900px){.portfolio-grid{grid-template-columns:1fr}.portfolio-card-body>p{min-height:auto}}
 @media(max-width:650px){.portfolio-section-label{gap:13px}.portfolio-section-label strong{font-size:1.22rem}.portfolio-demo-label{margin-top:54px}.portfolio-card-body{padding:22px}.portfolio-preview-link{opacity:1;top:auto;left:auto;right:14px;bottom:14px;transform:none;padding:9px 13px}.portfolio-card:hover .portfolio-preview-link{transform:none}.portfolio-card .project-actions{display:grid}.portfolio-card .project-action{width:100%}}
 @media(prefers-reduced-motion:reduce){.portfolio-card,.portfolio-preview img,.portfolio-preview-link{transition:none}.portfolio-card:hover{transform:none}.portfolio-card:hover .portfolio-preview img{transform:none}}
+
+
+/* v3.2.1 — Conversão & UX: WhatsApp inteligente */
+.whatsapp-smart{position:fixed;right:24px;bottom:26px;z-index:120;display:flex;align-items:center;gap:11px;min-width:58px;height:58px;padding:7px;border:1px solid rgba(124,92,255,.55);border-radius:999px;background:linear-gradient(145deg,rgba(14,17,24,.97),rgba(25,28,40,.96));box-shadow:0 18px 55px rgba(0,0,0,.42),0 0 0 1px rgba(53,211,255,.08) inset;color:#fff;overflow:hidden;isolation:isolate;transition:width .45s cubic-bezier(.2,.8,.2,1),transform .22s ease,border-color .22s ease,box-shadow .22s ease;padding .45s cubic-bezier(.2,.8,.2,1);width:58px}
+.whatsapp-smart::before{content:'';position:absolute;inset:-1px;z-index:-2;border-radius:inherit;background:linear-gradient(110deg,#7c5cff,#35d3ff);opacity:.9}
+.whatsapp-smart::after{content:'';position:absolute;inset:1px;z-index:-1;border-radius:inherit;background:linear-gradient(145deg,#11141d,#191d2a)}
+.whatsapp-smart:hover,.whatsapp-smart:focus-visible{transform:translateY(-3px) scale(1.015);border-color:rgba(53,211,255,.85);box-shadow:0 22px 64px rgba(0,0,0,.48),0 0 30px rgba(124,92,255,.2)}
+.whatsapp-smart.is-expanded{width:min(310px,calc(100vw - 38px));padding-right:18px}
+.whatsapp-smart-icon-wrap{position:relative;z-index:2;display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.25)}
+.whatsapp-smart-icon{width:25px;height:25px;display:block}
+.whatsapp-smart-copy{position:relative;z-index:2;display:grid;min-width:215px;line-height:1.15;opacity:0;transform:translateX(10px);transition:opacity .25s ease .12s,transform .3s ease .12s;white-space:nowrap}
+.whatsapp-smart.is-expanded .whatsapp-smart-copy{opacity:1;transform:none}
+.whatsapp-smart-copy small{color:#9ba4b5;font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.whatsapp-smart-copy strong{margin-top:3px;overflow:hidden;text-overflow:ellipsis;font-size:.82rem;font-weight:800}
+.whatsapp-smart-pulse{position:absolute;left:7px;top:7px;width:44px;height:44px;border:1px solid rgba(37,211,102,.72);border-radius:50%;opacity:0;pointer-events:none}
+.whatsapp-smart.do-pulse .whatsapp-smart-pulse{animation:whatsapp-smart-pulse 1.45s ease-out}
+@keyframes whatsapp-smart-pulse{0%{transform:scale(.92);opacity:.8}100%{transform:scale(1.75);opacity:0}}
+@media(max-width:760px){.whatsapp-smart{right:14px;bottom:78px}.whatsapp-smart.is-expanded{width:min(286px,calc(100vw - 28px))}.whatsapp-smart-copy{min-width:198px}.whatsapp-smart-copy strong{font-size:.76rem}}
+@media(prefers-reduced-motion:reduce){.whatsapp-smart,.whatsapp-smart-copy{transition:none}.whatsapp-smart.do-pulse .whatsapp-smart-pulse{animation:none}}
+@media print{.whatsapp-smart{display:none!important}}
+
+/* v3.2.1 — Entrega 2: microinterações orientadas à conversão */
+:root{--motion-fast:180ms;--motion-base:280ms;--motion-slow:520ms;--ease-premium:cubic-bezier(.2,.8,.2,1)}
+.btn,.nav-cta,.text-link,.main-nav>a,.social-links a,.footer-columns a{position:relative;isolation:isolate}
+.btn,.nav-cta{overflow:hidden;transition:transform var(--motion-base) var(--ease-premium),box-shadow var(--motion-base) var(--ease-premium),border-color var(--motion-base) ease,filter var(--motion-base) ease}
+.btn::before,.nav-cta::before{content:"";position:absolute;inset:-2px;z-index:-1;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.22) 47%,transparent 69%);transform:translateX(-125%);transition:transform .7s var(--ease-premium);pointer-events:none}
+.btn:hover::before,.nav-cta:hover::before{transform:translateX(125%)}
+.btn:hover,.nav-cta:hover{transform:translateY(-3px) scale(1.015);filter:saturate(1.08)}
+.btn.primary:hover{box-shadow:0 20px 50px rgba(124,92,255,.34),0 0 0 1px rgba(255,255,255,.08) inset}
+.btn:active,.nav-cta:active{transform:translateY(-1px) scale(.985);transition-duration:90ms}
+
+.card,.solution-card,.project-card,.service-card,.implantation-card,.article-list article,.method-flow article,.case-steps article,.related-link,.faq-item{position:relative;overflow:hidden;transition:transform var(--motion-base) var(--ease-premium),border-color var(--motion-base) ease,box-shadow var(--motion-base) var(--ease-premium),background-color var(--motion-base) ease}
+.card::before,.project-card::before,.article-list article::before,.method-flow article::before,.case-steps article::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.12),transparent 38%);opacity:0;transition:opacity var(--motion-base) ease;pointer-events:none}
+.card:hover::before,.project-card:hover::before,.article-list article:hover::before,.method-flow article:hover::before,.case-steps article:hover::before{opacity:1}
+.card>* ,.project-card>* ,.article-list article>* ,.method-flow article>* ,.case-steps article>*{position:relative;z-index:1}
+.card:hover,.solution-card:hover,.project-card:hover,.service-card:hover,.implantation-card:hover,.article-list article:hover,.method-flow article:hover,.case-steps article:hover,.related-link:hover{transform:translateY(-6px);border-color:rgba(124,92,255,.42);box-shadow:0 28px 75px rgba(0,0,0,.34),0 0 0 1px rgba(53,211,255,.04) inset}
+.project-card img,.premium-preview img,.project-visual img{transition:transform var(--motion-slow) var(--ease-premium),filter var(--motion-slow) ease}
+.project-card:hover img,.premium-card:hover .premium-preview img{transform:scale(1.045);filter:saturate(1.06) contrast(1.02)}
+
+.text-link,.main-nav>a:not(.nav-cta),.social-links a,.footer-columns a{transition:color var(--motion-fast) ease}
+.text-link::after,.social-links a::after,.footer-columns a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--accent));transform:scaleX(0);transform-origin:right;transition:transform var(--motion-base) var(--ease-premium)}
+.text-link:hover::after,.social-links a:hover::after,.footer-columns a:hover::after{transform:scaleX(1);transform-origin:left}
+
+.micro-ripple{position:absolute;z-index:4;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.34);transform:translate(-50%,-50%) scale(0);animation:microRipple .62s ease-out forwards;pointer-events:none}
+@keyframes microRipple{to{transform:translate(-50%,-50%) scale(18);opacity:0}}
+
+[data-micro-ready="true"]{transform-style:preserve-3d}
+.icon-breathe{animation:iconBreathe 3.8s ease-in-out infinite}
+@keyframes iconBreathe{50%{transform:translateY(-2px)}}
+
+@media (hover:none){.btn:hover,.nav-cta:hover,.card:hover,.project-card:hover,.article-list article:hover,.method-flow article:hover,.case-steps article:hover{transform:none}.card::before,.project-card::before,.article-list article::before,.method-flow article::before,.case-steps article::before{display:none}}
+@media(prefers-reduced-motion:reduce){.btn::before,.nav-cta::before,.micro-ripple{display:none!important}.icon-breathe{animation:none!important}.project-card img,.premium-preview img,.project-visual img{transform:none!important}}
+
+
+/* v3.2.1 — Entrega 3: Hero Premium com entrada cinematográfica leve */
+.hero-premium .hero-copy,.hero-premium .hero-diagram,.hero-premium .service-strip{will-change:transform,opacity}
+.hero-premium:not(.hero-is-ready) .kicker,
+.hero-premium:not(.hero-is-ready) .hero-copy h1,
+.hero-premium:not(.hero-is-ready) .hero-copy>p,
+.hero-premium:not(.hero-is-ready) .actions,
+.hero-premium:not(.hero-is-ready) .trust-row,
+.hero-premium:not(.hero-is-ready) .diagram-core,
+.hero-premium:not(.hero-is-ready) .d-node,
+.hero-premium:not(.hero-is-ready) .service-strip{opacity:0}
+.hero-premium:not(.hero-is-ready) .kicker,
+.hero-premium:not(.hero-is-ready) .hero-copy h1,
+.hero-premium:not(.hero-is-ready) .hero-copy>p,
+.hero-premium:not(.hero-is-ready) .actions,
+.hero-premium:not(.hero-is-ready) .trust-row{transform:translateY(22px)}
+.hero-premium:not(.hero-is-ready) .diagram-core{transform:translate(-50%,-50%) scale(.82)}
+.hero-premium:not(.hero-is-ready) .d-node{transform:translateY(12px) scale(.92)}
+.hero-premium:not(.hero-is-ready) .service-strip{transform:translateY(14px)}
+.hero-premium .hero-connections line{stroke-dasharray:260;stroke-dashoffset:260}
+.hero-premium.hero-is-ready .kicker{animation:heroFadeUp .52s var(--ease-premium) .05s both}
+.hero-premium.hero-is-ready .hero-copy h1{animation:heroFadeUp .62s var(--ease-premium) .13s both}
+.hero-premium.hero-is-ready .hero-copy>p{animation:heroFadeUp .58s var(--ease-premium) .24s both}
+.hero-premium.hero-is-ready .actions{animation:heroFadeUp .55s var(--ease-premium) .33s both}
+.hero-premium.hero-is-ready .trust-row{animation:heroFadeUp .55s var(--ease-premium) .42s both}
+.hero-premium.hero-is-ready .diagram-core{animation:heroCoreIn .62s cubic-bezier(.16,1,.3,1) .2s both}
+.hero-premium.hero-is-ready .hero-connections line{animation:heroDrawLine .72s ease-out .34s forwards}
+.hero-premium.hero-is-ready .d-node{animation:heroNodeIn .48s cubic-bezier(.16,1,.3,1) both}
+.hero-premium.hero-is-ready .n1{animation-delay:.42s}.hero-premium.hero-is-ready .n2{animation-delay:.49s}.hero-premium.hero-is-ready .n3{animation-delay:.56s}.hero-premium.hero-is-ready .n4{animation-delay:.63s}.hero-premium.hero-is-ready .n5{animation-delay:.70s}.hero-premium.hero-is-ready .n6{animation-delay:.77s}
+.hero-premium.hero-is-ready .service-strip{animation:heroStripIn .52s var(--ease-premium) .72s both}
+.hero-premium.hero-is-ready .diagram-core::after{animation:heroCorePulse 2.8s ease-in-out 1.05s infinite}
+.hero-premium .glow-a{animation:heroGlowFloat 8s ease-in-out infinite alternate}
+.hero-premium .glow-b{animation:heroGlowFloat 10s ease-in-out -2s infinite alternate-reverse}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(22px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+@keyframes heroCoreIn{from{opacity:0;transform:translate(-50%,-50%) scale(.82);filter:blur(7px)}to{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
+@keyframes heroNodeIn{from{opacity:0;transform:translateY(12px) scale(.92);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes heroDrawLine{to{stroke-dashoffset:0}}
+@keyframes heroStripIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes heroCorePulse{0%,100%{box-shadow:0 0 0 0 rgba(124,92,255,0),0 24px 70px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 10px rgba(124,92,255,.035),0 24px 70px rgba(0,0,0,.35)}}
+@keyframes heroGlowFloat{from{transform:translate3d(-2%,-1%,0) scale(.98)}to{transform:translate3d(3%,2%,0) scale(1.05)}}
+@media(max-width:980px){.hero-premium.hero-is-ready .hero-diagram{animation-delay:.34s}}
+@media(prefers-reduced-motion:reduce){
+ .hero-premium:not(.hero-is-ready) .kicker,.hero-premium:not(.hero-is-ready) .hero-copy h1,.hero-premium:not(.hero-is-ready) .hero-copy>p,.hero-premium:not(.hero-is-ready) .actions,.hero-premium:not(.hero-is-ready) .trust-row,.hero-premium:not(.hero-is-ready) .diagram-core,.hero-premium:not(.hero-is-ready) .d-node,.hero-premium:not(.hero-is-ready) .service-strip{opacity:1;transform:none;filter:none}
+ .hero-premium:not(.hero-is-ready) .diagram-core{transform:translate(-50%,-50%)}
+ .hero-premium .hero-connections line{stroke-dasharray:none;stroke-dashoffset:0}
+ .hero-premium.hero-is-ready *,.hero-premium .glow-a,.hero-premium .glow-b{animation:none!important}
+}
+
+/* v3.2.1 — Entrega 4: performance e conversão */
+html:not(.page-ready) body{opacity:.985}
+html.page-ready body{opacity:1;transition:opacity .18s ease}
+.conversion-engaged .nav-cta,
+.conversion-engaged [data-conversion-cta="diagnostic"]{box-shadow:0 0 0 1px rgba(124,92,255,.38),0 12px 34px rgba(50,220,255,.12)}
+.conversion-engaged .nav-cta::after,
+.conversion-engaged [data-conversion-cta="diagnostic"]::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;border:1px solid rgba(50,220,255,.32);opacity:0;animation:conversionAttention 1.9s ease-out 1}
+@keyframes conversionAttention{0%{opacity:0;transform:scale(.98)}28%{opacity:.7}100%{opacity:0;transform:scale(1.06)}}
+[data-conversion-cta]{position:relative}
+.data-saver .hero-v2::before,.data-saver .hero-v2::after,.data-saver .icon-breathe{animation:none!important}
+@media (prefers-reduced-motion:reduce){html.page-ready body{transition:none}.conversion-engaged .nav-cta::after,.conversion-engaged [data-conversion-cta="diagnostic"]::after{animation:none}}
+
+/* v3.3 — Central de Conhecimento */
+.knowledge-hero .narrow{max-width:980px}.knowledge-search{max-width:720px;margin:36px auto 0}.knowledge-search input{width:100%;min-height:58px;padding:0 20px;border:1px solid var(--border-2);border-radius:16px;background:rgba(12,15,22,.8);color:#fff;outline:none;box-shadow:0 20px 50px rgba(0,0,0,.2)}.knowledge-search input:focus{border-color:rgba(53,211,255,.55);box-shadow:0 0 0 4px rgba(53,211,255,.08)}.knowledge-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:18px}.knowledge-filters button{padding:9px 14px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.025);color:var(--muted);cursor:pointer}.knowledge-filters button:hover,.knowledge-filters button.active{border-color:rgba(124,92,255,.55);background:rgba(124,92,255,.14);color:#fff}.knowledge-results{margin:-25px 0 24px;color:var(--muted);font-size:.82rem}.knowledge-empty{padding:50px;text-align:center;border:1px dashed var(--border-2);border-radius:22px}.blog-card[hidden]{display:none}.article-summary{margin-bottom:50px;padding:26px 28px;border-left:3px solid var(--accent);border-radius:0 18px 18px 0;background:rgba(53,211,255,.055)}.article-summary strong,.section-label{display:block;margin-bottom:8px;color:var(--accent);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.article-summary p{margin:0;color:#d3d8e2}.article-section p+p{margin-top:18px}.content-note{margin-top:28px;padding:24px 26px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.025)}.content-note strong{display:block;margin-bottom:8px;color:#fff}.content-note p{font-size:.95rem}.content-note.tip{border-color:rgba(53,211,255,.25)}.content-note.warning{border-color:rgba(255,185,90,.25)}.article-checklist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0;padding:0;list-style:none}.article-checklist li{position:relative;padding:15px 16px 15px 42px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:#d7dbe4}.article-checklist li::before{content:'✓';position:absolute;left:16px;color:var(--accent);font-weight:800}.article-faq-list{display:grid;gap:10px;margin-top:24px}.article-faq{border:1px solid var(--border);border-radius:15px;background:var(--surface)}.article-faq summary{padding:18px 52px 18px 20px;cursor:pointer;color:#fff;font-weight:700;list-style:none}.article-faq summary::-webkit-details-marker{display:none}.article-faq summary::after{content:'+';float:right;margin-right:-32px;color:var(--accent)}.article-faq[open] summary::after{content:'−'}.article-faq p{padding:0 20px 20px!important;font-size:.96rem!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:650px){.knowledge-search input{min-height:54px}.article-checklist{grid-template-columns:1fr}.knowledge-results{margin-top:-10px}}

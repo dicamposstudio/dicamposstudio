@@ -173,3 +173,60 @@ Esta é a versão recomendada para substituir o conteúdo atual do repositório.
 - Separação clara entre projetos publicados e demonstrativos.
 - Ações de case e visita ao site mais visíveis.
 - Layout responsivo e acessível para desktop e mobile.
+
+
+## v3.2.1 — Conversão & UX (Entrega 1)
+
+- Novo componente próprio de WhatsApp com ícone oficial em SVG.
+- Expansão automática após 5,2 segundos e recolhimento suave.
+- Pulse discreto a cada 15 segundos.
+- Mensagens e textos pré-preenchidos conforme o contexto da página.
+- CTA adaptado após 65% da rolagem.
+- Suporte a teclado, `aria-live` e preferência por movimento reduzido.
+- Compatibilidade com a barra móvel de conversão e eventos de mensuração.
+
+## v3.2.1 — Entrega 2: Microinterações
+
+- brilho direcional e resposta tátil em botões e CTA do menu;
+- efeito de onda no clique, sem bibliotecas externas;
+- elevação e iluminação contextual em cards;
+- zoom suave nas imagens do portfólio;
+- sublinhado animado em links editoriais e do rodapé;
+- micro movimento em marcadores visuais;
+- suporte a teclado, dispositivos touch e `prefers-reduced-motion`;
+- implementação com CSS e JavaScript leves, sem dependências.
+
+A produção dos conteúdos da seção **Conteúdo** permanece programada para depois das Entregas 3 e 4.
+
+
+## v3.2.1 — Entrega 3: Hero Premium
+
+- Sequência de entrada na primeira dobra: mensagem, proposta, CTAs, confiança e diagrama.
+- Conexões do diagrama desenhadas progressivamente.
+- Nós do sistema surgem em sequência curta e coordenada.
+- Movimento ambiente sutil nos brilhos de fundo.
+- Animações feitas com CSS e JavaScript mínimo, sem bibliotecas externas.
+- Compatibilidade com `prefers-reduced-motion` para acessibilidade.
+- A seção Conteúdo permanece reservada para desenvolvimento após as Entregas 3 e 4.
+
+## v3.2.1 — Entrega 4: Performance e Conversão
+
+- imagens principais convertidas para WebP, preservando os arquivos originais como segurança;
+- logo da primeira dobra com preload, carregamento prioritário e dimensões explícitas;
+- imagens fora da primeira dobra mantidas com lazy loading e decoding assíncrono;
+- adaptação para economia de dados e conexões lentas;
+- sinal discreto de intenção após 20 segundos ou 50% de rolagem;
+- mensuração de visualização das seções principais;
+- eventos de CTA enriquecidos com texto, posição e página;
+- efeitos respeitam `prefers-reduced-motion`;
+- nenhuma biblioteca externa adicionada.
+
+A próxima etapa programada é a produção dos conteúdos reais da seção **Conteúdo**.
+
+
+## v3.3 — Central de Conhecimento
+- Central com pesquisa e filtros por categoria.
+- Seis artigos pilares da Fase 1.
+- Template editorial com índice, destaques, checklist, FAQ, CTA e relacionados.
+- Dados estruturados Article, FAQPage e BreadcrumbList.
+- Home e sitemap atualizados.

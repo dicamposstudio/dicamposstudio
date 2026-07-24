@@ -230,3 +230,11 @@ A próxima etapa programada é a produção dos conteúdos reais da seção **Co
 - Template editorial com índice, destaques, checklist, FAQ, CTA e relacionados.
 - Dados estruturados Article, FAQPage e BreadcrumbList.
 - Home e sitemap atualizados.
+
+
+## v3.4 — Analytics & Inteligência de Dados
+
+- GTM `GTM-5DW4BRTP` instalado em todas as páginas.
+- Contexto de página no `dataLayer`.
+- Biblioteca `js/analytics.js` com eventos de contato, conversão, conteúdo e navegação.
+- Documentação completa em `ANALYTICS-GTM-GA4.md`.

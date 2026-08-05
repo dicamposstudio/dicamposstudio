@@ -1,0 +1,301 @@
+/* DiCampos Studio — melhorias de clareza, conversão e acessibilidade */
+
+/* Conteúdo essencial permanece visível mesmo quando JavaScript ou animações falham. */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.hero-premium:not(.hero-is-ready) .kicker,
+.hero-premium:not(.hero-is-ready) .hero-copy h1,
+.hero-premium:not(.hero-is-ready) .hero-copy > p,
+.hero-premium:not(.hero-is-ready) .actions,
+.hero-premium:not(.hero-is-ready) .trust-row,
+.hero-premium:not(.hero-is-ready) .diagram-core,
+.hero-premium:not(.hero-is-ready) .d-node,
+.hero-premium:not(.hero-is-ready) .service-strip {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.hero-premium:not(.hero-is-ready) .kicker,
+.hero-premium:not(.hero-is-ready) .hero-copy h1,
+.hero-premium:not(.hero-is-ready) .hero-copy > p,
+.hero-premium:not(.hero-is-ready) .actions,
+.hero-premium:not(.hero-is-ready) .trust-row,
+.hero-premium:not(.hero-is-ready) .service-strip,
+.hero-premium:not(.hero-is-ready) .n2,
+.hero-premium:not(.hero-is-ready) .n3,
+.hero-premium:not(.hero-is-ready) .n5,
+.hero-premium:not(.hero-is-ready) .n6 {
+  transform: none !important;
+}
+
+.hero-premium:not(.hero-is-ready) .diagram-core {
+  transform: translate(-50%, -50%) !important;
+}
+
+.hero-premium:not(.hero-is-ready) .n1,
+.hero-premium:not(.hero-is-ready) .n4 {
+  transform: translateX(-50%) !important;
+}
+
+.hero-premium.hero-is-ready .kicker,
+.hero-premium.hero-is-ready .hero-copy h1,
+.hero-premium.hero-is-ready .hero-copy > p,
+.hero-premium.hero-is-ready .actions,
+.hero-premium.hero-is-ready .trust-row,
+.hero-premium.hero-is-ready .diagram-core,
+.hero-premium.hero-is-ready .d-node,
+.hero-premium.hero-is-ready .service-strip {
+  animation: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.hero-premium .hero-connections line {
+  stroke-dasharray: 7 10 !important;
+  stroke-dashoffset: 0 !important;
+}
+
+/* Home mais curta, sem alterar a paleta ou a linguagem visual. */
+.home-page .section {
+  padding: 96px 0;
+  content-visibility: visible !important;
+}
+
+.home-page .section-heading {
+  margin-bottom: 44px;
+}
+
+.hero-copy > .cta-reassurance {
+  margin: 12px 0 0;
+  color: #9fa8b8;
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.evidence-strip {
+  padding: 34px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(90deg, rgba(124, 92, 255, .045), rgba(53, 211, 255, .025));
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.evidence-grid article {
+  display: grid;
+  gap: 2px;
+  min-height: 96px;
+  padding: 14px 26px;
+  align-content: center;
+  border-left: 1px solid var(--border);
+}
+
+.evidence-grid article:last-child {
+  border-right: 1px solid var(--border);
+}
+
+.evidence-grid strong {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.evidence-grid span {
+  color: #f3f5fa;
+  font-size: .84rem;
+  font-weight: 750;
+}
+
+.evidence-grid small {
+  color: var(--muted);
+  font-size: .7rem;
+}
+
+/* Alvos de toque e rodapé. */
+.main-nav > a {
+  padding-block: 11px;
+}
+
+.footer-columns a,
+.social-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.footer-legal a,
+.privacy-inline-link,
+.privacy-note a,
+.privacy-content a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.diagnostic-fast .diagnostic-hero {
+  padding-top: 58px;
+}
+
+.diagnostic-fast .form-step label > small {
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 500;
+}
+
+.diagnostic-fast .privacy-note a,
+.diagnostic-fast .privacy-inline-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.conversion-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* O WhatsApp permanece compacto; no mobile a barra inferior já oferece a ação. */
+.whatsapp-smart {
+  width: 58px !important;
+}
+
+.whatsapp-smart.is-expanded {
+  width: min(310px, calc(100vw - 38px)) !important;
+}
+
+/* Página de privacidade. */
+.privacy-page .conversion-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(18px);
+}
+
+.privacy-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 86px 0 50px;
+}
+
+.privacy-hero h1 {
+  max-width: 850px;
+  margin: 22px 0 18px;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -.065em;
+}
+
+.privacy-hero p {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.privacy-content {
+  width: min(calc(100% - 40px), 850px);
+  margin: 0 auto;
+  padding: 35px 0 100px;
+}
+
+.privacy-content section {
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
+}
+
+.privacy-content h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.privacy-content p,
+.privacy-content li {
+  color: #c3c9d4;
+}
+
+.privacy-content ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 22px;
+}
+
+@media (max-width: 980px) {
+  .evidence-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .evidence-grid article:nth-child(3),
+  .evidence-grid article:nth-child(4) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 650px) {
+  .home-page .section {
+    padding: 72px 0;
+  }
+
+  .evidence-strip {
+    padding: 18px 0;
+  }
+
+  .evidence-grid article {
+    min-height: 106px;
+    padding: 16px 14px;
+  }
+
+  .evidence-grid strong {
+    font-size: 1.45rem;
+  }
+
+  .evidence-grid span {
+    font-size: .76rem;
+  }
+
+  .whatsapp-smart {
+    display: none !important;
+  }
+
+  .footer-legal {
+    display: grid;
+    gap: 8px;
+  }
+
+  .conversion-footer-links {
+    display: grid;
+    gap: 8px;
+  }
+
+  .privacy-hero {
+    padding: 58px 0 35px;
+  }
+
+  .privacy-content {
+    width: min(calc(100% - 28px), 850px);
+    padding-bottom: 70px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-premium .glow-a,
+  .hero-premium .glow-b,
+  .hero-premium .diagram-core::after {
+    animation: none !important;
+  }
+}

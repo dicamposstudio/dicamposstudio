@@ -1,11 +1,10 @@
 const header=document.querySelector('.site-header');const toggle=document.querySelector('.menu-toggle');const nav=document.querySelector('.main-nav');const year=document.querySelector('#ano-atual');if(year)year.textContent=new Date().getFullYear();window.addEventListener('scroll',()=>header?.classList.toggle('scrolled',scrollY>16),{passive:true});function closeMenu(){nav?.classList.remove('open');toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Abrir menu');document.body.classList.remove('menu-open')}toggle?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');toggle.setAttribute('aria-expanded',String(!!open))});document.querySelectorAll('.main-nav a').forEach(a=>a.addEventListener('click',closeMenu));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});const items=document.querySelectorAll('.reveal');if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.12});items.forEach(x=>io.observe(x))}else items.forEach(x=>x.classList.add('is-visible'));
 
-function trackEvent(name,params={}){window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:name,...params});if(typeof window.gtag==='function')window.gtag('event',name,params)}
-document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;const explicit=a.dataset.track;const href=a.href||'';let event=explicit;if(!event&&href.includes('wa.me'))event='whatsapp_click';if(!event&&href.startsWith('tel:'))event='phone_click';if(event)trackEvent(event,{link_text:a.textContent.trim(),link_url:href,page_path:location.pathname})});
+function trackEvent(name,params={}){if(typeof window.dicamposTrack==='function'){window.dicamposTrack(name,params);return}window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:name,...params})}
 
 const simpleForm=document.querySelector('.diagnostic-form');simpleForm?.addEventListener('submit',e=>{e.preventDefault();if(!simpleForm.reportValidity())return;const d=new FormData(simpleForm);const msg=`Olá! Visitei o site da DiCampos Studio e gostaria de solicitar um diagnóstico digital.\n\n*Nome:* ${d.get('nome')}\n*Empresa:* ${d.get('empresa')}\n*WhatsApp:* ${d.get('telefone')}\n*Principal desafio:* ${d.get('desafio')}\n*Contexto:* ${d.get('mensagem')}`;trackEvent('generate_lead',{form_name:'diagnostico_home'});window.open('https://wa.me/5581997782751?text='+encodeURIComponent(msg),'_blank','noopener')});
 
-const qForm=document.querySelector('.qualified-diagnostic-form');if(qForm){const steps=[...qForm.querySelectorAll('.form-step')];const progress=[...document.querySelectorAll('.form-progress span')];let current=0;function showStep(n){steps.forEach((s,i)=>s.classList.toggle('active',i===n));progress.forEach((s,i)=>s.classList.toggle('active',i<=n));current=n;window.scrollTo({top:Math.max(0,qForm.getBoundingClientRect().top+scrollY-110),behavior:'smooth'})}function validateStep(){const fields=[...steps[current].querySelectorAll('input,select,textarea')];for(const field of fields){if(!field.checkValidity()){field.reportValidity();return false}}return true}qForm.querySelectorAll('.next-step').forEach(b=>b.addEventListener('click',()=>{if(validateStep())showStep(Math.min(current+1,steps.length-1))}));qForm.querySelectorAll('.prev-step').forEach(b=>b.addEventListener('click',()=>showStep(Math.max(current-1,0))));qForm.addEventListener('submit',e=>{e.preventDefault();if(!qForm.reportValidity())return;const d=new FormData(qForm);const rows=[['Nome',d.get('nome')],['Empresa',d.get('empresa')],['WhatsApp',d.get('telefone')],['Segmento',d.get('segmento')],['Objetivo',d.get('objetivo')],['Situação do site',d.get('possui_site')],['Site/perfil',d.get('url')||'Não informado'],['Anúncios',d.get('anuncios')],['Investimento previsto',d.get('orcamento')],['Prazo',d.get('prazo')],['Principal desafio',d.get('mensagem')]];const msg='Olá! Preenchi o Diagnóstico Digital da DiCampos Studio.\n\n'+rows.map(([k,v])=>`*${k}:* ${v}`).join('\n');trackEvent('generate_lead',{form_name:'diagnostico_qualificado',lead_objective:d.get('objetivo'),budget_range:d.get('orcamento')});sessionStorage.setItem('dicamposDiagnosticMessage',msg);window.open('https://wa.me/5581997782751?text='+encodeURIComponent(msg),'_blank','noopener');setTimeout(()=>location.href=qForm.dataset.thankyou||'obrigado.html',450)});}
+const qForm=document.querySelector('.qualified-diagnostic-form');if(qForm){const steps=[...qForm.querySelectorAll('.form-step')];const progress=[...document.querySelectorAll('.form-progress span')];let current=0;function showStep(n){steps.forEach((s,i)=>s.classList.toggle('active',i===n));progress.forEach((s,i)=>s.classList.toggle('active',i<=n));current=n;window.scrollTo({top:Math.max(0,qForm.getBoundingClientRect().top+scrollY-110),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}function validateStep(){const fields=[...steps[current].querySelectorAll('input,select,textarea')];for(const field of fields){if(!field.checkValidity()){field.reportValidity();return false}}return true}qForm.querySelectorAll('.next-step').forEach(b=>b.addEventListener('click',()=>{if(validateStep())showStep(Math.min(current+1,steps.length-1))}));qForm.querySelectorAll('.prev-step').forEach(b=>b.addEventListener('click',()=>showStep(Math.max(current-1,0))));qForm.addEventListener('submit',e=>{e.preventDefault();if(!qForm.reportValidity())return;const d=new FormData(qForm);const rows=[['Nome',d.get('nome')],['WhatsApp',d.get('telefone')],['Empresa',d.get('empresa')],['Segmento',d.get('segmento')],['Objetivo',d.get('objetivo')],['Situação do site',d.get('possui_site')],['Prazo',d.get('prazo')],['Principal desafio',d.get('mensagem')]].filter(([,v])=>String(v||'').trim());const msg='Olá! Preenchi o Diagnóstico Digital da DiCampos Studio.\n\n'+rows.map(([k,v])=>`*${k}:* ${v}`).join('\n');trackEvent('generate_lead',{form_name:'diagnostico_qualificado',lead_objective:d.get('objetivo')});sessionStorage.setItem('dicamposDiagnosticMessage',msg);window.open('https://wa.me/5581997782751?text='+encodeURIComponent(msg),'_blank','noopener');setTimeout(()=>location.href=qForm.dataset.thankyou||'obrigado.html',450)});}
 
 // Máscara visual simples para WhatsApp
 const phone=document.querySelector('input[name="telefone"]');phone?.addEventListener('input',()=>{let v=phone.value.replace(/\D/g,'').slice(0,11);if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');else if(v.length>6)v=v.replace(/(\d{2})(\d{4})(\d+)/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d+)/,'($1) $2');phone.value=v});
@@ -107,18 +106,15 @@ window.addEventListener('pageshow',()=>{document.documentElement.classList.add('
     setTimeout(() => widget.classList.remove('do-pulse'), 1600);
   };
 
-  if (reduced) {
-    expand();
-  } else {
-    setTimeout(() => { expand(); pulse(); }, 5200);
-    setTimeout(collapse, 11200);
-    setInterval(pulse, 15000);
+  if (!reduced) {
+    setTimeout(pulse, 5200);
+    setInterval(pulse, 30000);
   }
 
   widget.addEventListener('mouseenter', expand);
   widget.addEventListener('focus', expand);
-  widget.addEventListener('mouseleave', () => { if (scrollY < 700) collapse(); });
-  widget.addEventListener('blur', () => { if (scrollY < 700) collapse(); });
+  widget.addEventListener('mouseleave', collapse);
+  widget.addEventListener('blur', collapse);
 
   let journeyChanged = false;
   const updateJourney = () => {
@@ -128,7 +124,6 @@ window.addEventListener('pageshow',()=>{document.documentElement.classList.add('
       journeyChanged = true;
       setMessage('Vamos conversar sobre seu projeto?');
       setHref('Olá! Conheci melhor o trabalho da DiCampos Studio e gostaria de conversar sobre meu projeto.');
-      expand();
       pulse();
     }
   };

@@ -1,3 +1,5 @@
+> Registro de uma versão anterior. Para a revisão de 20/09/2026, consulte CORRECOES-2026-09-20.md e ANALYTICS-GTM-GA4.md.
+
 # Melhorias implementadas — DiCampos Studio
 
 Atualização realizada em 5 de agosto de 2026, mantendo a identidade escura e o esquema de cores roxo/ciano do site.

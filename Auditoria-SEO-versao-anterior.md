@@ -1,3 +1,5 @@
+> Registro de uma versão anterior. Para a revisão de 20/09/2026, consulte CORRECOES-2026-09-20.md e ANALYTICS-GTM-GA4.md.
+
 # Auditoria SEO e QA — DiCampos Studio
 
 **Versão corrigida:** v1.2 — SEO Auditado  

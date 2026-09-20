@@ -2,14 +2,6 @@ const header=document.querySelector('.site-header');const toggle=document.queryS
 
 function trackEvent(name,params={}){if(typeof window.dicamposTrack==='function'){window.dicamposTrack(name,params);return}window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:name,...params})}
 
-const simpleForm=document.querySelector('.diagnostic-form');simpleForm?.addEventListener('submit',e=>{e.preventDefault();if(!simpleForm.reportValidity())return;const d=new FormData(simpleForm);const msg=`Olá! Visitei o site da DiCampos Studio e gostaria de solicitar um diagnóstico digital.\n\n*Nome:* ${d.get('nome')}\n*Empresa:* ${d.get('empresa')}\n*WhatsApp:* ${d.get('telefone')}\n*Principal desafio:* ${d.get('desafio')}\n*Contexto:* ${d.get('mensagem')}`;trackEvent('generate_lead',{form_name:'diagnostico_home'});window.open('https://wa.me/5581997782751?text='+encodeURIComponent(msg),'_blank','noopener')});
-
-const qForm=document.querySelector('.qualified-diagnostic-form');if(qForm){const steps=[...qForm.querySelectorAll('.form-step')];const progress=[...document.querySelectorAll('.form-progress span')];let current=0;function showStep(n){steps.forEach((s,i)=>s.classList.toggle('active',i===n));progress.forEach((s,i)=>s.classList.toggle('active',i<=n));current=n;window.scrollTo({top:Math.max(0,qForm.getBoundingClientRect().top+scrollY-110),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}function validateStep(){const fields=[...steps[current].querySelectorAll('input,select,textarea')];for(const field of fields){if(!field.checkValidity()){field.reportValidity();return false}}return true}qForm.querySelectorAll('.next-step').forEach(b=>b.addEventListener('click',()=>{if(validateStep())showStep(Math.min(current+1,steps.length-1))}));qForm.querySelectorAll('.prev-step').forEach(b=>b.addEventListener('click',()=>showStep(Math.max(current-1,0))));qForm.addEventListener('submit',e=>{e.preventDefault();if(!qForm.reportValidity())return;const d=new FormData(qForm);const rows=[['Nome',d.get('nome')],['WhatsApp',d.get('telefone')],['Empresa',d.get('empresa')],['Segmento',d.get('segmento')],['Objetivo',d.get('objetivo')],['Situação do site',d.get('possui_site')],['Prazo',d.get('prazo')],['Principal desafio',d.get('mensagem')]].filter(([,v])=>String(v||'').trim());const msg='Olá! Preenchi o Diagnóstico Digital da DiCampos Studio.\n\n'+rows.map(([k,v])=>`*${k}:* ${v}`).join('\n');trackEvent('generate_lead',{form_name:'diagnostico_qualificado',lead_objective:d.get('objetivo')});sessionStorage.setItem('dicamposDiagnosticMessage',msg);window.open('https://wa.me/5581997782751?text='+encodeURIComponent(msg),'_blank','noopener');setTimeout(()=>location.href=qForm.dataset.thankyou||'obrigado.html',450)});}
-
-// Máscara visual simples para WhatsApp
-const phone=document.querySelector('input[name="telefone"]');phone?.addEventListener('input',()=>{let v=phone.value.replace(/\D/g,'').slice(0,11);if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');else if(v.length>6)v=v.replace(/(\d{2})(\d{4})(\d+)/,'($1) $2-$3');else if(v.length>2)v=v.replace(/(\d{2})(\d+)/,'($1) $2');phone.value=v});
-
-
 // Sprint 6 — navegação acessível e redução de movimento
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(toggle&&nav){toggle.addEventListener('keydown',e=>{if(e.key==='ArrowDown'&&nav.classList.contains('open')){e.preventDefault();nav.querySelector('a')?.focus()}});document.addEventListener('click',e=>{if(nav.classList.contains('open')&&!nav.contains(e.target)&&!toggle.contains(e.target))closeMenu()});}
@@ -23,7 +15,7 @@ window.addEventListener('pageshow',()=>{document.documentElement.classList.add('
     const url = new URL(link.getAttribute('href'), location.href);
     const linkPath = url.pathname.replace(/\/$/, '') || '/';
     if (!link.hash && linkPath === path) link.setAttribute('aria-current', 'page');
-    else if (link.hash && linkPath === path && document.querySelector(link.hash)) link.addEventListener('click', () => link.setAttribute('aria-current', 'location'));
+    else if (link.hash && linkPath === path && document.getElementById(link.hash.slice(1))) link.addEventListener('click', () => { document.querySelectorAll('.main-nav a[aria-current]').forEach(a => a.removeAttribute('aria-current')); link.setAttribute('aria-current', 'location'); });
   });
 
   if (toggle) {
@@ -46,7 +38,7 @@ window.addEventListener('pageshow',()=>{document.documentElement.classList.add('
   topButton.href = '#topo';
   topButton.setAttribute('aria-label', 'Voltar ao topo');
   topButton.textContent = '↑';
-  document.body.appendChild(topButton);
+  if (document.getElementById('topo')) document.body.appendChild(topButton);
 
   let ticking = false;
   const updateScrollUI = () => {
@@ -240,7 +232,7 @@ window.addEventListener('pageshow',()=>{document.documentElement.classList.add('
   input?.addEventListener('input', apply);
   buttons.forEach(button => button.addEventListener('click', () => {
     filter = button.dataset.filter || 'all';
-    buttons.forEach(item => item.classList.toggle('active', item === button));
+    buttons.forEach(item => { item.classList.toggle('active', item === button); item.setAttribute('aria-pressed', String(item === button)); });
     apply();
   }));
   apply();

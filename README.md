@@ -1,37 +1,9 @@
-# Olá! 👋
+# DiCampos Studio
 
-Sou **Diego Campos**, fundador da **DiCampos Studio**.
+Site institucional com páginas de serviços, projetos, cases de mídia e Central de Conhecimento.
 
-Transformo empresas em máquinas de geração de clientes através de:
+Versão corrigida em 20/09/2026. Consulte `CORRECOES-2026-09-20.md` para o mapa de alterações e `ANALYTICS-GTM-GA4.md` para as configurações externas.
 
-- 🌐 Desenvolvimento de Sites
-- 🔎 SEO
-- 📈 Google Ads
-- 📱 Meta Ads
-- 🎯 Landing Pages
+O projeto usa HTML, CSS e JavaScript estáticos. Não exige instalação de dependências ou build para publicação no GitHub Pages. Publique o conteúdo desta pasta na raiz do repositório de projeto existente.
 
----
-
-## 🚀 Projetos em destaque
-
-- DiCampos Studio
-- Linha Verde Spas e Piscinas
-- Uillian Novaes Tattoo
-- Corretores Premium
-
----
-
-## 📫 Contato
-
-📧 diegocampos.gcd@gmail.com
-
-📱 WhatsApp: +55 81 99778-2751
-
-🌐 https://dicamposstudio.github.io/dicamposstudio/
-
-📷 Instagram
-https://instagram.com/dicamposstudio
-
----
-
-> "Transformando estratégias digitais em resultados reais."
+Endereço público: [DiCampos Studio](https://dicamposstudio.github.io/dicamposstudio/).

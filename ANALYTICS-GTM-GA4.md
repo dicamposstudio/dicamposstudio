@@ -1,69 +1,73 @@
-# DiCampos Studio v3.4 — Analytics & Inteligência de Dados
+# Mensuração da DiCampos Studio — referência atual
 
-## Identificadores
+Os arquivos de importação citados acompanham o ZIP na pasta configuracao-externa; não precisam ser publicados como páginas do site.
 
-- Google Tag Manager: `GTM-5DW4BRTP`
-- GA4 / Google Tag: `G-3WS38M5W18`
+# Ativação das configurações externas
 
-## Implementação no site
+Preparado em 20/09/2026 para o site DiCampos Studio. Os arquivos do site estão corrigidos; este documento trata das configurações que ficam nos painéis externos e na raiz do host. Nenhuma alteração foi publicada nesses serviços durante esta entrega.
 
-O container do GTM foi instalado em todas as páginas HTML:
+## 1. Google Tag Manager e GA4
 
-- script do GTM no início do `<head>`;
-- fallback `<noscript>` imediatamente após `<body>`;
-- contexto de página enviado ao `dataLayer` antes do carregamento do GTM;
-- biblioteca central de eventos em `js/analytics.js`.
+Contêiner: `GTM-5DW4BRTP`. Fluxo GA4: `G-3WS38M5W18`.
 
-## Eventos personalizados
+O arquivo `GTM-DiCampos-eventos.json` prepara uma tag nativa de evento GA4, um acionador com a lista dos 25 eventos permitidos, 20 variáveis da camada de dados e a variável integrada Event. Não adiciona uma segunda tag base. O JSON e suas referências foram conferidos localmente; a importação e a execução precisam ser validadas no próprio GTM.
 
-| Evento | Uso principal |
-|---|---|
-| `page_context` | Tipo, categoria, título e caminho da página |
-| `contact_whatsapp` | Clique para contato pelo WhatsApp |
-| `contact_phone` | Clique em telefone |
-| `contact_email` | Clique em e-mail |
-| `diagnostic_request` | Clique em CTA de diagnóstico |
-| `form_submit` | Envio de formulário |
-| `lead_generated` | Acesso à página de agradecimento |
-| `article_open` | Abertura de artigo |
-| `article_read_25/50/75/90` | Profundidade de leitura |
-| `article_cta_click` | CTA acionado dentro de artigo |
-| `related_article_click` | Clique em conteúdo relacionado |
-| `knowledge_search` | Pesquisa na Central de Conhecimento |
-| `knowledge_filter` | Uso dos filtros da Central |
-| `portfolio_view` | Interesse em projeto/case |
-| `service_interest` | Interesse em solução |
-| `file_download_custom` | Download de material |
-| `engaged_time` | Permanência de 30, 60 e 120 segundos |
+1. Exporte a versão atual do contêiner para conservar uma cópia.
+2. Em Administrador → Importar contêiner, escolha `GTM-DiCampos-eventos.json`, um novo espaço de trabalho e **Mesclar**. Confira o resumo antes de importar. Não escolha substituir o contêiner inteiro.
+3. Em Tags, encontre a tag Google de `G-3WS38M5W18` que já existe. Mantenha o acionamento de inicialização em todas as páginas. Remova dessa tag apenas o acionador de clique no WhatsApp identificado na auditoria. O clique passa a ser medido por `contact_whatsapp`.
+4. Confira a tag importada `DC - GA4 - Eventos do site`: tipo Google Analytics: evento do GA4, ID `G-3WS38M5W18`, nome do evento `{{Event}}` e acionador `DC - Eventos personalizados permitidos`.
+5. Se a importação não reconhecer algum campo nesta versão da interface, use o JSON como mapa: crie uma tag nativa de evento GA4 com esse ID e nome, um acionador Evento personalizado com a expressão regular do JSON e as variáveis da camada de dados indicadas no arquivo. Não use HTML personalizado nem insira uma segunda instalação do GA4 nas páginas.
+6. Abra Visualizar e conecte a versão atualizada do site. Verifique no Tag Assistant e no DebugView um clique, um diagnóstico preparado e um download. O acionador só deve enviar os nomes previstos.
+7. Revise regras legadas que transformem visita ao agradecimento ou preparação de WhatsApp em `lead_generated`/`generate_lead`. Desative apenas as regras com esses critérios incorretos, preservando integrações que realmente confirmem um contato.
+8. Após a validação, publique o espaço de trabalho no GTM. A simples atualização do ZIP não publica o contêiner.
 
-## Configuração necessária no GTM
+Eventos principais e interpretação:
 
-1. Mantenha a tag **Google Tag - All Pages**, ID `G-3WS38M5W18`, acionada em **Initialization - All Pages**.
-2. Crie uma tag **Google Analytics: evento do GA4** para cada evento que será enviado ao GA4, ou use uma tag genérica cujo nome do evento venha da variável `{{Event}}`.
-3. Acionador recomendado para eventos do `dataLayer`: **Evento personalizado**, usando o nome do evento correspondente.
-4. Inclua parâmetros úteis por meio de Variáveis da camada de dados, como `page_type`, `page_category`, `element_position`, `link_text`, `article_title` e `scroll_percent`.
+| Evento | O que confirma | Como interpretar |
+|---|---|---|
+| `diagnostic_start` | Primeira interação com os campos | Início do preenchimento |
+| `diagnostic_prepared` | Duas etapas válidas e mensagem preparada | Intenção; não é lead recebido |
+| `contact_whatsapp` | Ação para abrir a conversa | Clique de contato; não confirma envio |
+| `panorama_form_submitted` | Confirmação recebida do formulário Tally correto | Cadastro do material; não comprova lead qualificado |
+| `file_download_custom` | Clique no botão de download | Interesse no material; não confirma leitura do PDF |
 
-## Conversões recomendadas no GA4
+Se o objetivo for medir cadastros do Panorama, `panorama_form_submitted` pode ser um evento principal após validação. Para o diagnóstico por WhatsApp, o recebimento e a qualificação precisam ser conciliados com o atendimento ou CRM. Não some abertura do WhatsApp, preparação e cadastro como se fossem o mesmo resultado.
 
-Marque como eventos principais:
+O evento automático `file_download` do GA4 e o personalizado `file_download_custom` têm nomes diferentes. Use uma definição nos relatórios para não somar a mesma ação duas vezes. O mesmo cuidado vale para os eventos automáticos de formulário. Eventos de navegação como `diagnostic_request` e `conversion_cta_click` descrevem aspectos da mesma interação; não são dois contatos.
 
-- `lead_generated` — conversão principal;
-- `form_submit` — conversão principal quando confirmado;
-- `diagnostic_request` — microconversão;
-- `contact_whatsapp` — microconversão.
+O código não inclui respostas do diagnóstico ou campos do Tally nos eventos personalizados. O botão que abre o diagnóstico no WhatsApp também mantém essas respostas fora dos atributos dos links. Configurações adicionais de coleta automática no painel não foram auditadas nesta entrega.
 
-Evite tratar scroll, permanência e visualizações como conversões.
+## 2. Formulário do Panorama no Tally
 
-## Validação após publicar no GitHub Pages
+Formulário incorporado: `lbXZx6`.
 
-1. Publique os arquivos do ZIP no repositório.
-2. Aguarde a atualização do GitHub Pages.
-3. No GTM, clique em **Visualizar** e conecte a URL completa `https://dicamposstudio.github.io/dicamposstudio/`.
-4. Verifique se o container `GTM-5DW4BRTP` é encontrado.
-5. Navegue, clique no WhatsApp e abra um artigo para validar os eventos no painel do Tag Assistant.
-6. Confirme o recebimento em **GA4 > Administrador > DebugView**.
-7. Somente depois clique em **Enviar** no GTM para publicar o container.
+O listener foi implementado conforme os eventos documentados do Tally, verificando a origem, a janela do iframe, o ID do formulário e a duplicação da submissão. `panorama_form_loaded` significa formulário carregado; não é uma afirmação de que o visitante começou a preenchê-lo. O site não tenta ler campos dentro do iframe.
 
-## Próximas integrações
+Confira no painel do Tally se o redirecionamento após envio continua apontando para:
 
-Google Ads, Meta Pixel e Microsoft Clarity devem ser instalados pelo GTM. Não é necessário inserir novos scripts diretamente nas páginas.
+`https://dicamposstudio.github.io/dicamposstudio/panorama-digital/obrigado.html`
+
+Valide a confirmação em um formulário de teste ou exclua da análise um registro de teste identificado. Esta entrega não enviou cadastros à base comercial. A mensagem de sucesso do Tally e o recebimento real da submissão precisam ser conferidos no serviço, além do evento observado no navegador.
+
+## 3. robots.txt e Search Console
+
+O arquivo `robots.txt` desta pasta é destinado a `https://dicamposstudio.github.io/robots.txt`. Essa raiz costuma ser publicada pelo repositório `dicamposstudio.github.io`, separado do repositório de projeto `dicamposstudio`.
+
+Se houver um site/regras na raiz, integre a linha Sitemap ao arquivo existente. Se não houver, publique o arquivo no repositório responsável pela raiz. Ele permite rastreamento e informa o sitemap do projeto; não bloqueia as páginas de agradecimento, permitindo que o Google leia seu `noindex`.
+
+O arquivo `dicamposstudio/robots.txt` continua no projeto por compatibilidade, com um comentário que explica essa limitação. Copiá-lo para a pasta do projeto não corrige a localização no host. A ausência de robots.txt na raiz não impede, por si só, a indexação.
+
+No Search Console, envie o sitemap:
+
+`https://dicamposstudio.github.io/dicamposstudio/sitemap.xml`
+
+Ele contém 37 URLs canônicas. A URL antiga `landing-page-ou-site-institucional.html` encaminha imediatamente para `site-institucional-ou-landing-page.html` e aponta o canonical para o destino. Em GitHub Pages estático isso é um redirecionamento HTML, não uma resposta HTTP 301. A indexação e a consolidação final precisam ser acompanhadas no Search Console; enviar sitemap não garante inclusão no Google.
+
+## Referências de implementação
+
+- [Importação e exportação no GTM](https://support.google.com/tagmanager/answer/6106997?hl=pt-BR).
+- [Configuração de eventos GA4 no GTM](https://support.google.com/tagmanager/answer/13034206?hl=pt-BR).
+- [Estrutura de tags na API do GTM](https://developers.google.com/tag-platform/tag-manager/api/reference/rest/v2/accounts.containers.workspaces.tags).
+- [Eventos JavaScript do Tally](https://developers.tally.so/widgets/events).
+- [Localização do robots.txt](https://developers.google.com/crawling/docs/robots-txt/create-robots-txt).
+- [Bloqueio de indexação com noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing).

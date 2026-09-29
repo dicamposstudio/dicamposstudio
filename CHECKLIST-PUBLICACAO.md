@@ -7,6 +7,6 @@
 5. Seguir `ANALYTICS-GTM-GA4.md` para importar e validar eventos sem contar uma visita ao agradecimento como lead.
 6. Conferir redirecionamento e recebimento do formulário Tally em ambiente de teste.
 7. Enviar sitemap no Search Console e acompanhar as URLs estratégicas; o envio não garante indexação.
-8. Integrar o robots.txt ao repositório da raiz do host, se aplicável. O arquivo na subpasta deste projeto não governa o host.
+8. Confirmar que `https://dicamposstudio.com.br/robots.txt` está acessível e referencia `https://dicamposstudio.com.br/sitemap.xml`.
 
 O ZIP já passou por verificações estáticas e testes de fluxo em DOM simulado. Essa validação não substitui renderização real, Core Web Vitals ou conferência de recebimento no GA4.

@@ -45,21 +45,19 @@ O listener foi implementado conforme os eventos documentados do Tally, verifican
 
 Confira no painel do Tally se o redirecionamento após envio continua apontando para:
 
-`https://dicamposstudio.github.io/dicamposstudio/panorama-digital/obrigado.html`
+`https://dicamposstudio.com.br/panorama-digital/obrigado.html`
 
 Valide a confirmação em um formulário de teste ou exclua da análise um registro de teste identificado. Esta entrega não enviou cadastros à base comercial. A mensagem de sucesso do Tally e o recebimento real da submissão precisam ser conferidos no serviço, além do evento observado no navegador.
 
 ## 3. robots.txt e Search Console
 
-O arquivo `robots.txt` desta pasta é destinado a `https://dicamposstudio.github.io/robots.txt`. Essa raiz costuma ser publicada pelo repositório `dicamposstudio.github.io`, separado do repositório de projeto `dicamposstudio`.
+Com o domínio próprio `https://dicamposstudio.com.br/` configurado no GitHub Pages, o arquivo `robots.txt` deste repositório é servido na raiz do domínio.
 
-Se houver um site/regras na raiz, integre a linha Sitemap ao arquivo existente. Se não houver, publique o arquivo no repositório responsável pela raiz. Ele permite rastreamento e informa o sitemap do projeto; não bloqueia as páginas de agradecimento, permitindo que o Google leia seu `noindex`.
-
-O arquivo `dicamposstudio/robots.txt` continua no projeto por compatibilidade, com um comentário que explica essa limitação. Copiá-lo para a pasta do projeto não corrige a localização no host. A ausência de robots.txt na raiz não impede, por si só, a indexação.
+Ele permite o rastreamento e informa o sitemap em `https://dicamposstudio.com.br/sitemap.xml`. As páginas de agradecimento permanecem acessíveis ao rastreador para que o Google possa ler as diretivas `noindex` presentes no HTML.
 
 No Search Console, envie o sitemap:
 
-`https://dicamposstudio.github.io/dicamposstudio/sitemap.xml`
+`https://dicamposstudio.com.br/sitemap.xml`
 
 Ele contém 37 URLs canônicas. A URL antiga `landing-page-ou-site-institucional.html` encaminha imediatamente para `site-institucional-ou-landing-page.html` e aponta o canonical para o destino. Em GitHub Pages estático isso é um redirecionamento HTML, não uma resposta HTTP 301. A indexação e a consolidação final precisam ser acompanhadas no Search Console; enviar sitemap não garante inclusão no Google.
 

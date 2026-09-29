@@ -10,7 +10,7 @@ Esta é a referência atual do projeto. Documentos de sprints anteriores são hi
 | A04 — âncoras | Menu/rodapé do portfólio apontam para a home | Corrigido; nenhuma âncora interna quebrada |
 | A05 — telefone | Formato brasileiro, DDD e mensagem de erro | Corrigido e testado |
 | A06 — acessibilidade | Cor do botão, foco na etapa, progresso e filtros acessíveis | Código corrigido; validação visual no dispositivo pendente |
-| A07 — robots.txt | Arquivo correto para raiz do host e instruções | Publicação na raiz do host pendente |
+| A07 — robots.txt | Arquivo atualizado para o domínio próprio | Resolvido com `dicamposstudio.com.br` em 29/09/2026 |
 | A08 — cobertura | GTM no Panorama/Fluxo/privacidade; listener Tally | Código corrigido; entrega ao GA4 e configuração Tally a conferir |
 | A09 — descoberta | 37 URLs no sitemap, nove artigos e links ao Panorama/Fluxo | Corrigido |
 | A10 — duplicação editorial | Uma URL principal; redirect HTML e canonical na antiga | Corrigido; acompanhar consolidação no Google |

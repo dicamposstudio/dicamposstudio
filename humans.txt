@@ -1,6 +1,6 @@
 /* TEAM */
 Strategy, design and development: DiCampos Studio
-Contact: https://dicamposstudio.github.io/dicamposstudio/pages/diagnostico.html
+Contact: https://dicamposstudio.com.br/pages/diagnostico.html
 Location: Recife, Pernambuco, Brasil
 
 /* SITE */

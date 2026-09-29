@@ -1,6 +1,5 @@
-# Em GitHub Pages de projeto, este arquivo fica numa subpasta e nao governa o host.
-# A copia para a raiz do host acompanha o pacote em configuracao-externa.
+# Robots.txt do domínio principal da DiCampos Studio.
 User-agent: *
 Allow: /
 
-Sitemap: https://dicamposstudio.github.io/dicamposstudio/sitemap.xml
+Sitemap: https://dicamposstudio.com.br/sitemap.xml

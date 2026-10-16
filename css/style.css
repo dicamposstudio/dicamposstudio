@@ -566,3 +566,132 @@ button.btn{cursor:pointer}
 .case-project-preview figcaption{padding:14px 18px;color:var(--muted);font-size:.78rem}
 .portfolio-grid-published .project-action{white-space:normal;text-align:center}
 @media(min-width:901px){.portfolio-grid-published>.portfolio-card:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}.portfolio-grid-published>.portfolio-card:last-child:nth-child(odd) .portfolio-preview{aspect-ratio:auto;min-height:330px}.portfolio-grid-published>.portfolio-card:last-child:nth-child(odd) .portfolio-preview img{position:absolute;inset:0;object-fit:cover;object-position:top}}
+
+
+/* UX Home — primeira tela mais clara e CTA visível (outubro/2026). */
+/* Escopo restrito à Home; não altera os títulos das páginas de serviço. */
+@media (min-width: 981px) {
+  .home-page .hero.hero-premium {
+    padding-top: 40px;
+  }
+
+  .home-page .hero.hero-premium .hero-grid {
+    grid-template-columns: minmax(0, 1.14fr) minmax(0, .86fr);
+    gap: clamp(28px, 3.4vw, 48px);
+    min-height: 585px;
+  }
+
+  .home-page .hero.hero-premium .hero-copy h1 {
+    margin-top: 19px;
+    font-size: clamp(3.3rem, 4.5vw, 4.35rem);
+    line-height: 1.045;
+    letter-spacing: -.065em;
+    text-wrap: balance;
+  }
+
+  .home-page .hero.hero-premium .hero-copy > p:not(.cta-reassurance) {
+    max-width: 600px;
+    margin-top: 19px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .home-page .hero.hero-premium .hero-copy .actions {
+    margin-top: 24px;
+  }
+
+  .home-page .hero.hero-premium .trust-row {
+    margin-top: 28px;
+    padding-top: 19px;
+  }
+
+  .home-page .hero.hero-premium .hero-diagram {
+    min-height: 515px;
+  }
+
+  .home-page .hero.hero-premium .diagram-core {
+    width: 166px;
+    height: 166px;
+  }
+
+  .home-page .hero.hero-premium .d-node {
+    min-width: 126px;
+    padding: 11px 12px;
+  }
+}
+
+/* Prioridade ao botão do diagnóstico em notebooks com pouca altura útil. */
+@media (min-width: 981px) and (max-height: 800px) {
+  .home-page .hero.hero-premium {
+    padding-top: 26px;
+  }
+
+  .home-page .hero.hero-premium .hero-grid {
+    min-height: 545px;
+  }
+
+  .home-page .hero.hero-premium .hero-copy h1 {
+    font-size: clamp(3.2rem, 4.25vw, 4.05rem);
+  }
+
+  .home-page .hero.hero-premium .hero-diagram {
+    min-height: 490px;
+  }
+
+  .home-page .hero.hero-premium .trust-row {
+    margin-top: 21px;
+    padding-top: 15px;
+  }
+}
+
+@media (min-width: 651px) and (max-width: 980px) {
+  .home-page .hero.hero-premium {
+    padding-top: 40px;
+  }
+
+  .home-page .hero.hero-premium .hero-grid {
+    gap: 32px;
+  }
+
+  .home-page .hero.hero-premium .hero-copy h1 {
+    font-size: clamp(3.1rem, 6.7vw, 4.35rem);
+    line-height: 1.05;
+    letter-spacing: -.065em;
+  }
+
+  .home-page .hero.hero-premium .hero-copy .actions {
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 650px) {
+  .home-page .hero.hero-premium {
+    padding-top: 30px;
+  }
+
+  .home-page .hero.hero-premium .hero-grid {
+    gap: 28px;
+  }
+
+  .home-page .hero.hero-premium .hero-copy h1 {
+    margin-top: 20px;
+    font-size: clamp(2.6rem, 10.8vw, 3.45rem);
+    line-height: 1.06;
+    letter-spacing: -.06em;
+  }
+
+  .home-page .hero.hero-premium .hero-copy > p:not(.cta-reassurance) {
+    margin-top: 19px;
+    font-size: .97rem;
+    line-height: 1.55;
+  }
+
+  .home-page .hero.hero-premium .hero-copy .actions {
+    margin-top: 24px;
+  }
+
+  .home-page .hero.hero-premium .trust-row {
+    margin-top: 27px;
+    padding-top: 18px;
+  }
+}

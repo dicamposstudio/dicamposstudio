@@ -11,7 +11,7 @@
     'engaged_time','section_view','user_engaged_intent','conversion_cta_click','panorama_form_loaded','panorama_form_page_view',
     'panorama_form_submitted']);
   const paramKeys = new Set(['link_text','link_url','element_position','cta_name','file_name','article_title','scroll_percent',
-    'search_term','filter_name','engagement_seconds','form_name','lead_objective','section_id','engagement_source','cta_text','cta_position','form_page']);
+    'search_term','filter_name','engagement_seconds','form_name','lead_objective','lead_segment','section_id','engagement_source','cta_text','cta_position','form_page']);
   function safeUrl(value) {
     try {
       const url = new URL(value, location.href);
@@ -30,6 +30,15 @@
     window.dataLayer.push(payload);
   }
   window.dicamposTrack = push;
+  const segmentByPath = [
+    ['sites-para-advogados.html', 'Advocacia'],
+    ['sites-para-clinicas.html', 'Medicina e clínicas'],
+    ['sites-para-corretores.html', 'Imobiliárias e corretores'],
+    ['sites-para-arquitetos.html', 'Arquitetura e engenharia'],
+    ['sites-para-empresas-de-piscinas.html', 'Piscinas e spas'],
+    ['sites-para-industrias.html', 'Indústria']
+  ];
+  const currentSegment = segmentByPath.find(([page]) => location.pathname.endsWith('/' + page))?.[1];
   const positionOf = element => element.closest('header') ? 'header' : element.closest('.mobile-conversion-bar') ? 'mobile_bar' :
     element.closest('.whatsapp-smart') ? 'floating_widget' : element.closest('footer') ? 'footer' :
     element.closest('.hero,.service-hero,.article-hero') ? 'hero' : element.closest('article') ? 'article_body' : 'content';
@@ -39,11 +48,11 @@
     const href = link.href || '';
     const common = {link_text:clean(link.textContent || link.getAttribute('aria-label')),link_url:href,element_position:positionOf(link)};
     let url; try { url = new URL(href, location.href); } catch (_) {}
-    if (url && ['wa.me','api.whatsapp.com','web.whatsapp.com'].includes(url.hostname)) push('contact_whatsapp',common);
+    if (url && ['wa.me','api.whatsapp.com','web.whatsapp.com'].includes(url.hostname)) push('contact_whatsapp',{...common,lead_segment:currentSegment || 'Não informado'});
     else if (/^tel:/i.test(href)) push('contact_phone',{element_position:common.element_position});
     else if (/^mailto:/i.test(href)) push('contact_email',{element_position:common.element_position});
     if (link.matches('[data-conversion-cta],[data-track*="diagnostic"],a[href*="diagnostico"]'))
-      push('diagnostic_request',{...common,cta_name:clean(link.dataset.track || 'diagnostic')});
+      push('diagnostic_request',{...common,cta_name:clean(link.dataset.track || 'diagnostic'),lead_segment:currentSegment || 'Não informado'});
     if (link.matches('a[download],[data-download],[data-track*="download"]'))
       push('file_download_custom',{...common,file_name:url?.pathname.split('/').pop() || ''});
     if (context.page_type === 'article' && link.closest('main')) {

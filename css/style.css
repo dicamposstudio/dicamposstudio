@@ -695,3 +695,10 @@ button.btn{cursor:pointer}
     padding-top: 18px;
   }
 }
+
+/* SEO content: comparisons and project evidence. */
+.seo-case-preview{display:block;width:100%;height:auto;border:1px solid var(--border);border-radius:16px}.seo-table-wrap{overflow-x:auto;margin:24px 0}.seo-comparison{width:100%;border-collapse:collapse;min-width:520px;text-align:left}.seo-comparison th,.seo-comparison td{border:1px solid var(--border);padding:16px;vertical-align:top}.seo-comparison thead{background:rgba(124,92,255,.12)}.portfolio-group-heading{font-family:var(--font-display);font-size:1.15rem;margin:0}
+
+.seo-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.seo-card-grid .strategy-panel{padding:26px;min-width:0}.seo-card-grid h3{margin:0;font-family:var(--font-display);font-size:1.1rem}.seo-card-grid p{margin:0;font-size:.95rem;line-height:1.7}.seo-evidence{grid-template-columns:1fr 1fr;gap:32px}.seo-evidence p{font-size:1rem;margin:0 0 16px}@media(max-width:980px){.seo-card-grid,.seo-evidence{grid-template-columns:1fr}}
+
+.seo-company-page .section-heading h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.12;letter-spacing:-.04em;margin:18px 0 24px}.seo-company-page .btn.primary{color:#fff}

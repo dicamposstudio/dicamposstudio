@@ -23,7 +23,7 @@
     const status = panel.querySelector('[data-copy-status]');
     if (preview) preview.value = draft.message;
     if (link) link.onclick = () => {
-      track('contact_whatsapp', {link_url:whatsapp,element_position:'diagnostic_review',form_name:'diagnostico'});
+      track('contact_whatsapp', {link_url:whatsapp,element_position:'diagnostic_review',form_name:'diagnostico',lead_segment:draft.segment || 'Não informado'});
       window.open(whatsapp + '?text=' + encodeURIComponent(draft.message), '_blank', 'noopener,noreferrer');
     };
     if (copy) copy.onclick = async () => {
@@ -53,6 +53,26 @@
   const live = document.querySelector('[data-step-status]');
   const phone = form.elements.telefone;
   const name = form.elements.nome;
+  const segmentField = form.elements.segmento;
+  // Usa apenas a categoria profissional (nunca dados pessoais) para qualificar o diagnóstico.
+  if (segmentField && segmentField.options) {
+    const byPage = [
+      ['sites-para-advogados.html', 'Advocacia'],
+      ['sites-para-clinicas.html', 'Medicina e clínicas'],
+      ['sites-para-corretores.html', 'Imobiliárias e corretores'],
+      ['sites-para-arquitetos.html', 'Arquitetura e engenharia']
+    ];
+    let previousPage = '';
+    try {
+      const ref = new URL(document.referrer);
+      if (ref.origin === location.origin) previousPage = ref.pathname;
+    } catch (_) { /* A seleção manual continua disponível. */ }
+    const previousSegment = byPage.find(([page]) => previousPage.endsWith('/' + page))?.[1];
+    const requested = new URLSearchParams(location.search).get('segmento');
+    const values = [...segmentField.options].map(option => option.value);
+    const segment = values.includes(requested) && requested ? requested : previousSegment;
+    if (segment && values.includes(segment) && !segmentField.value) segmentField.value = segment;
+  }
   let current = 0;
   let lastMessage = '';
   let lastDraft = null;
@@ -149,8 +169,9 @@
       ['Segmento', data.get('segmento')], ['Objetivo', data.get('objetivo')], ['Situação do site', data.get('possui_site')],
       ['Prazo', data.get('prazo')], ['Principal desafio', data.get('mensagem')]].filter(([,value]) => String(value || '').trim());
     const message = 'Olá! Preenchi o Diagnóstico Digital da DiCampos Studio.\n\n' + rows.map(([label,value]) => `*${label}:* ${String(value).trim()}`).join('\n');
-    const draft = message === lastMessage && lastDraft ? lastDraft : { message, createdAt: Date.now() };
-    if (message !== lastMessage) track('diagnostic_prepared', { form_name: 'diagnostico', lead_objective: String(data.get('objetivo')) });
+    const leadSegment = String(data.get('segmento') || '').trim() || 'Não informado';
+    const draft = message === lastMessage && lastDraft ? lastDraft : { message, segment: leadSegment, createdAt: Date.now() };
+    if (message !== lastMessage) track('diagnostic_prepared', { form_name: 'diagnostico', lead_objective: String(data.get('objetivo')), lead_segment: leadSegment });
     lastMessage = message; lastDraft = draft;
     let stored = false;
     try {

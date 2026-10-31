@@ -2,20 +2,32 @@
 
 Os arquivos de importação citados acompanham o ZIP na pasta configuracao-externa; não precisam ser publicados como páginas do site.
 
+## Conferência em 31/10/2026 — destino das tags
+
+O fluxo da propriedade DiCampos Studio conectada ao OpenSEO informa o ID **G-3WS38MSW18** (letra S depois de 38M). O contêiner público GTM-5DW4BRTP consultado nesta data apresenta a tag Google base com **G-3WS38M5W18** (número 5 nessa posição). A tag de evento contact_whatsapp usa o ID correto; outros eventos consultados ainda apontam para o ID com 5. Há também uma condição com o domínio antigo dicamposstudio.github.io.
+
+Isso confirma uma divergência de configuração, mas não determina, sozinho, toda a causa das diferenças entre Search Console e Analytics. A publicação do código do site não altera as tags do contêiner.
+
+No painel do GTM, exporte a versão atual, confira o destino de cada tag e alinhe a tag Google base e os eventos ao fluxo G-3WS38MSW18. Revise o acionador associado ao domínio antigo, preservando os critérios necessários de evento e consentimento. Não adicione uma segunda tag base ao HTML para compensar o problema.
+
+Antes de publicar o contêiner, valide em Visualizar/Tag Assistant: uma visita produz um page_view na propriedade correta; um clique no WhatsApp produz um contact_whatsapp; link_url não inclui a mensagem ou dados preenchidos. Confirme o registro no DebugView. Não transforme clique ou preparação de mensagem em contato recebido ou venda.
+
+Os IDs nas instruções abaixo foram corrigidos nesta revisão. Qualquer arquivo de importação antigo precisa ser conferido com esta referência antes de ser usado. Esta alteração do repositório não publica mudanças no GTM e não equivale à validação em tempo real.
+
 # Ativação das configurações externas
 
 Preparado em 20/09/2026 para o site DiCampos Studio. Os arquivos do site estão corrigidos; este documento trata das configurações que ficam nos painéis externos e na raiz do host. Nenhuma alteração foi publicada nesses serviços durante esta entrega.
 
 ## 1. Google Tag Manager e GA4
 
-Contêiner: `GTM-5DW4BRTP`. Fluxo GA4: `G-3WS38M5W18`.
+Contêiner: `GTM-5DW4BRTP`. Fluxo GA4: `G-3WS38MSW18`.
 
 O arquivo `GTM-DiCampos-eventos.json` prepara uma tag nativa de evento GA4, um acionador com a lista dos 25 eventos permitidos, 20 variáveis da camada de dados e a variável integrada Event. Não adiciona uma segunda tag base. O JSON e suas referências foram conferidos localmente; a importação e a execução precisam ser validadas no próprio GTM.
 
 1. Exporte a versão atual do contêiner para conservar uma cópia.
 2. Em Administrador → Importar contêiner, escolha `GTM-DiCampos-eventos.json`, um novo espaço de trabalho e **Mesclar**. Confira o resumo antes de importar. Não escolha substituir o contêiner inteiro.
-3. Em Tags, encontre a tag Google de `G-3WS38M5W18` que já existe. Mantenha o acionamento de inicialização em todas as páginas. Remova dessa tag apenas o acionador de clique no WhatsApp identificado na auditoria. O clique passa a ser medido por `contact_whatsapp`.
-4. Confira a tag importada `DC - GA4 - Eventos do site`: tipo Google Analytics: evento do GA4, ID `G-3WS38M5W18`, nome do evento `{{Event}}` e acionador `DC - Eventos personalizados permitidos`.
+3. Em Tags, encontre a tag Google de `G-3WS38MSW18` que já existe. Mantenha o acionamento de inicialização em todas as páginas. Remova dessa tag apenas o acionador de clique no WhatsApp identificado na auditoria. O clique passa a ser medido por `contact_whatsapp`.
+4. Confira a tag importada `DC - GA4 - Eventos do site`: tipo Google Analytics: evento do GA4, ID `G-3WS38MSW18`, nome do evento `{{Event}}` e acionador `DC - Eventos personalizados permitidos`.
 5. Se a importação não reconhecer algum campo nesta versão da interface, use o JSON como mapa: crie uma tag nativa de evento GA4 com esse ID e nome, um acionador Evento personalizado com a expressão regular do JSON e as variáveis da camada de dados indicadas no arquivo. Não use HTML personalizado nem insira uma segunda instalação do GA4 nas páginas.
 6. Abra Visualizar e conecte a versão atualizada do site. Verifique no Tag Assistant e no DebugView um clique, um diagnóstico preparado e um download. O acionador só deve enviar os nomes previstos.
 7. Revise regras legadas que transformem visita ao agradecimento ou preparação de WhatsApp em `lead_generated`/`generate_lead`. Desative apenas as regras com esses critérios incorretos, preservando integrações que realmente confirmem um contato.

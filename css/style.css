@@ -706,3 +706,8 @@ button.btn{cursor:pointer}
 /* Casos publicados: pares em desktop, uma coluna em telas menores. */
 .seo-card-grid.two-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:980px){.seo-card-grid.two-case-grid{grid-template-columns:1fr}}
+
+/* Autoria: links visíveis sem depender apenas da cor. */
+.article-meta a[rel="author"],.article-author a{text-decoration:underline;text-underline-offset:.2em}
+.article-meta a[rel="author"]:hover,.article-author a:hover{color:var(--accent)}
+#diego-campos{scroll-margin-top:100px}
